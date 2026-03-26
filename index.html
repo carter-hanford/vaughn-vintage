@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Vaughn Vintage</title>
+<link rel="icon" href="assets/favicon.png?v=vv4" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=vv4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
@@ -83,16 +85,21 @@
   }
 
   .header-logo {
-    height: 54px;
+    display: block;
+    height: 44px;
     width: auto;
-    max-width: 200px;
-    object-fit: contain;
-    object-position: left center;
     opacity: 0.92;
     transition: opacity 0.2s;
     cursor: pointer;
   }
   .header-logo:hover { opacity: 1; }
+  .header-logo-text {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    fill: rgba(255, 255, 255, 0.92);
+  }
 
   header > a:first-of-type {
     display: flex;
@@ -150,10 +157,25 @@
     padding-right: max(0px, env(safe-area-inset-right, 0px));
   }
 
+  .hero-bg-gif {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-bg-gif img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
   #hero::before {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
     background: radial-gradient(ellipse 55% 45% at 50% 42%, rgba(255,255,255,0.04) 0%, transparent 72%);
     pointer-events: none;
   }
@@ -177,6 +199,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-bg-gif {
+      display: none;
+    }
     .hero-logo {
       animation: none;
       opacity: 1;
@@ -408,7 +433,7 @@
   }
 
   .visuals-intro {
-    max-width: 640px;
+    max-width: 720px;
     margin-left: auto;
     margin-right: auto;
     font-size: 19px;
@@ -569,6 +594,16 @@
     word-wrap: break-word;
   }
 
+  .visual-desc a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .visual-desc a:hover {
+    color: var(--text);
+  }
+
   .visuals-cta {
     max-width: 840px;
     margin: 0 auto;
@@ -580,14 +615,6 @@
     text-align: center;
     background: rgba(255, 255, 255, 0.02);
     position: relative;
-  }
-
-  .visuals-cta::before {
-    content: '◈';
-    font-size: 32px;
-    color: var(--accent-muted);
-    margin-bottom: 24px;
-    opacity: 0.5;
   }
 
   .cta-heading {
@@ -615,6 +642,86 @@
     gap: 24px 36px;
     width: 100%;
     max-width: 540px;
+  }
+
+  .cta-pricing {
+    margin-top: 48px;
+    padding-top: 40px;
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+  }
+  .cta-pricing-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .cta-pricing-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+  }
+  .cta-pricing-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .cta-pricing-tier {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  /* Circle motif from Lucide Icons (ISC) — https://lucide.dev/icons/circle */
+  .cta-pricing-tier-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  .cta-pricing-tier-icon text {
+    fill: currentColor;
+    stroke: none;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+  }
+  .cta-pricing-item-text {
+    flex: 0 1 auto;
+    max-width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+  .cta-pricing-footnote {
+    margin: 22px auto 0;
+    max-width: 420px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.35);
   }
 
   .cta-instagram {
@@ -738,12 +845,16 @@
   }
 
   .footer-logo {
-    height: 42px;
+    display: block;
+    height: 36px;
     width: auto;
-    max-width: 160px;
-    object-fit: contain;
-    object-position: left center;
-    opacity: 0.6;
+  }
+  .footer-logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    fill: rgba(255, 255, 255, 0.6);
   }
 
   .social-links {
@@ -815,7 +926,7 @@
       height: clamp(300px, 64dvh, min(900px, 88dvh));
       max-width: min(96vw, 100% - 20px);
     }
-    .header-logo { max-width: 130px; height: 40px; }
+    .header-logo { height: 36px; width: auto; }
     /* One large cover per row — each tile ~ full content width */
     .track-grid {
       flex-direction: column;
@@ -858,6 +969,28 @@
       align-items: stretch;
       max-width: 320px;
     }
+    .cta-pricing {
+      margin-top: 36px;
+      padding-top: 32px;
+    }
+    .cta-pricing-list {
+      font-size: 15px;
+    }
+    .cta-pricing-tier-icon {
+      width: 16px;
+      height: 16px;
+    }
+    .cta-pricing-tier-icon text {
+      font-size: 8px;
+    }
+    .cta-pricing-item {
+      gap: 7px;
+      justify-content: center;
+    }
+    .cta-pricing-footnote {
+      font-size: 10px;
+      padding-inline: 8px;
+    }
     .cta-instagram {
       justify-content: center;
     }
@@ -885,12 +1018,10 @@
      HEADER
 ════════════════════════════════════════════ -->
 <header id="site-header">
-  <a href="#hero">
-    <img
-      class="header-logo"
-      src="assets/logo.png"
-      alt="Vaughn Vintage"
-    />
+  <a href="#hero" aria-label="Vaughn Vintage home">
+    <svg class="header-logo" viewBox="0 0 88 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <text class="header-logo-text" x="50%" y="50%" dominant-baseline="central" text-anchor="middle">VV</text>
+    </svg>
   </a>
   <nav aria-label="Primary">
     <a href="#visuals">VISUALS</a>
@@ -903,6 +1034,15 @@
      HERO
 ════════════════════════════════════════════ -->
 <section id="hero">
+  <div class="hero-bg-gif" aria-hidden="true">
+    <img
+      src="assets/hero-flicker.gif"
+      alt=""
+      width="1280"
+      height="720"
+      decoding="async"
+    />
+  </div>
   <img
     class="hero-logo"
     src="assets/logo.png"
@@ -930,7 +1070,7 @@
   <div class="section-title">VISUALS</div>
 
   <p class="visuals-intro">
-    First impressions only happen once. Make it count.
+    First impressions only happen once. Make it count. I specialize in custom high resolution visuals for LED walls. Your brand is important; good visuals turn heads and win over new fans. Let me help you tell your story.
   </p>
 
   <div class="visuals-columns">
@@ -949,7 +1089,7 @@
         />
         <div class="screen-corner-br"></div>
       </div>
-      <p class="visual-desc">The original, high-resolution motion graphic as rendered — clean, precise, full-color depth.</p>
+      <p class="visual-desc">High resolution 4k rendered file perfect for LED walls. Exported in DXV3 format for <a href="https://www.resolume.com/" target="_blank" rel="noopener noreferrer">Resolume</a> compatibility.</p>
     </div>
 
     <div>
@@ -966,7 +1106,7 @@
         />
         <div class="screen-corner-br"></div>
       </div>
-      <p class="visual-desc">The same visual in a real concert environment — projected across LED walls, backdrop screens, and stage rigs.</p>
+      <p class="visual-desc">The same rendered visual file in a real concert environment mapped across an LED wall. Rops &amp; Charles LIVE @ Mississippi Underground</p>
     </div>
 
   </div>
@@ -1010,6 +1150,40 @@
           </button>
         </div>
       </details>
+    </div>
+
+    <div class="cta-pricing">
+      <div class="cta-pricing-title">Pricing</div>
+      <ul class="cta-pricing-list">
+        <li class="cta-pricing-item">
+          <span class="cta-pricing-tier" aria-hidden="true">
+            <svg class="cta-pricing-tier-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="12" y="12.5" text-anchor="middle" dominant-baseline="central">1</text>
+            </svg>
+          </span>
+          <span class="cta-pricing-item-text">10 high resolution videos for $250</span>
+        </li>
+        <li class="cta-pricing-item">
+          <span class="cta-pricing-tier" aria-hidden="true">
+            <svg class="cta-pricing-tier-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="12" y="12.5" text-anchor="middle" dominant-baseline="central">2</text>
+            </svg>
+          </span>
+          <span class="cta-pricing-item-text">15 high resolution videos for $300</span>
+        </li>
+        <li class="cta-pricing-item">
+          <span class="cta-pricing-tier" aria-hidden="true">
+            <svg class="cta-pricing-tier-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="12" y="12.5" text-anchor="middle" dominant-baseline="central">3</text>
+            </svg>
+          </span>
+          <span class="cta-pricing-item-text">Need 20+? Let's talk about custom work.</span>
+        </li>
+      </ul>
+      <p class="cta-pricing-footnote">CashApp, Venmo, PayPal accepted payment options</p>
     </div>
   </div>
   </div>
@@ -1058,11 +1232,9 @@
 ════════════════════════════════════════════ -->
 <footer id="follow">
   <div class="footer-inner">
-    <img
-      class="footer-logo"
-      src="assets/logo.png"
-      alt="Vaughn Vintage"
-    />
+    <svg class="footer-logo" viewBox="0 0 88 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vaughn Vintage">
+      <text class="footer-logo-text" x="50%" y="50%" dominant-baseline="central" text-anchor="middle">VV</text>
+    </svg>
 
     <div class="social-links">
 
@@ -1279,7 +1451,7 @@
       .catch(function () {
         showSpotifyEmbed();
         grid.innerHTML =
-          '<p class="discography-empty">Could not load <code>assets/discography.json</code>. Use a local server from this folder (<code>npm run dev</code> or <code>npm start</code>) — don’t open <code>index.html</code> directly in the browser. The Spotify player above still works.</p>';
+          '<p class="discography-empty">Could not load <code>assets/discography.json</code>. Locally: use <code>npm run dev</code> (not a raw <code>file://</code> open). Live site: commit <code>assets/discography.json</code> to the repo (run <code>npm run spotify:sync</code> with a local <code>.env</code>, or add <code>SPOTIFY_CLIENT_ID</code> / <code>SPOTIFY_CLIENT_SECRET</code> under repo <strong>Settings → Secrets → Actions</strong> and run the <strong>Sync Spotify discography</strong> workflow). Secrets are never sent to browsers—only this JSON file is published.</p>';
       });
   })();
 </script>

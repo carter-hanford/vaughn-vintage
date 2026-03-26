@@ -9,7 +9,9 @@
     "logo:transparent": "node tools/make-logo-transparent.mjs",
     "logo:variants": "node tools/generate-logo-variants.mjs",
     "gif:source": "node tools/mp4-to-gif.mjs",
-    "spotify:sync": "node scripts/sync-spotify-discography.mjs"
+    "gif:hero": "node tools/mov-to-hero-gif.mjs",
+    "spotify:sync": "node scripts/sync-spotify-discography.mjs",
+    "favicon:vv": "node tools/generate-vv-favicon.mjs"
   },
   "devDependencies": {
     "ffmpeg-static": "^5.2.0",
