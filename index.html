@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Vaughn Vintage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #ffffff;
+    --accent-muted: rgba(255, 255, 255, 0.5);
+    --accent-dim: rgba(255, 255, 255, 0.18);
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --black: #000000;
+    --off-black: #080808;
+    --dark: #0e0e0e;
+    --mid: #1a1a1a;
+    --text: #d0d0d0;
+    --muted: #737373;
+    --white: #ffffff;
+    /*
+     * Impact-style stack: Impact (Windows/macOS) + Bebas Neue (web, all platforms).
+     * Haettenschweiler / Franklin Gothic Heavy echo the condensed grotesque genre.
+     */
+    --font-display:
+      Impact,
+      'Bebas Neue',
+      Haettenschweiler,
+      'Franklin Gothic Heavy',
+      'Arial Narrow',
+      'Helvetica Inserat',
+      'Nimbus Sans Narrow',
+      system-ui,
+      sans-serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    /* Layout scale (desktop); mobile overrides below */
+    --header-h: 72px;
+    --section-pad-y: 120px;
+    --section-pad-x: min(72px, 5vw);
+    --shell-max: 1240px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    overflow-x: clip;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* ─── HEADER ─────────────────────────────────── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--section-pad-x);
+    height: var(--header-h);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  header.header--solid {
+    background: rgba(0, 0, 0, 0.94);
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .header-logo {
+    height: 54px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0.92;
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+  .header-logo:hover { opacity: 1; }
+
+  header > a:first-of-type {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  nav {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  nav a {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  nav a:hover { color: var(--white); }
+  nav a:hover::after { transform: scaleX(1); }
+
+  /* ─── HERO ───────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-left: max(0px, env(safe-area-inset-left, 0px));
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 45% at 50% 42%, rgba(255,255,255,0.04) 0%, transparent 72%);
+    pointer-events: none;
+  }
+
+  .hero-logo {
+    width: auto;
+    height: clamp(400px, 88vh, min(1400px, 92dvh));
+    max-width: min(98vw, 960px);
+    object-fit: contain;
+    image-rendering: auto;
+    opacity: 0;
+    animation: fadeInLogo 1s ease forwards 0.35s;
+    filter: drop-shadow(0 0 80px rgba(255,255,255,0.06));
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes fadeInLogo {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-logo {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* ─── SECTION SHARED ─────────────────────────── */
+  #music,
+  #visuals,
+  #contact {
+    scroll-margin-top: calc(var(--header-h) + 20px);
+  }
+
+  section {
+    padding: var(--section-pad-y) var(--section-pad-x);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(42px, 6.2vw, 88px);
+    letter-spacing: 0.06em;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 64px;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-dim), transparent);
+  }
+
+  /* Centered section shells */
+  .section-shell {
+    max-width: var(--shell-max);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-shell .section-title {
+    text-align: center;
+  }
+
+  .footer-mark {
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  .visual-screen--dim {
+    background: #0a0a0a;
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ─── MUSIC ──────────────────────────────────── */
+  #music {
+    background: var(--black);
+  }
+
+  .album-section {
+    margin-bottom: 0;
+  }
+
+  .track-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 1480px;
+    margin: 0 auto;
+  }
+
+  a.track-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .track-card {
+    width: 336px;
+    max-width: min(336px, 46vw);
+    flex: 0 0 auto;
+    aspect-ratio: 1;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    transition: border-color 0.2s;
+  }
+  .track-card:hover { border-color: rgba(255, 255, 255, 0.28); }
+
+  .track-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    image-rendering: auto;
+  }
+
+  .track-thumb--empty {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  }
+
+  .discography-empty {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 28px 20px;
+  }
+
+  .discography-empty code {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .spotify-artist-link {
+    display: inline-block;
+    margin-top: 44px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-dim);
+    padding-bottom: 4px;
+    transition: opacity 0.2s;
+  }
+  .spotify-artist-link:hover {
+    opacity: 0.75;
+  }
+
+  .spotify-embed-wrap {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto 36px;
+  }
+
+  .spotify-embed-wrap iframe {
+    display: block;
+    width: 100%;
+    height: min(480px, 58dvh);
+    min-height: 320px;
+    border: 0;
+    border-radius: 12px;
+    background: #1a1a1a;
+  }
+
+  .discography-steps {
+    text-align: left;
+    margin: 20px auto 0;
+    max-width: 580px;
+    padding-left: 1.25rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .discography-steps li {
+    margin-bottom: 10px;
+  }
+
+  .discography-steps a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .discography-steps a:hover {
+    color: var(--white);
+  }
+
+  .track-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px 16px;
+  }
+  .track-card:hover .track-overlay { opacity: 1; }
+
+  @media (max-width: 600px) and (hover: none) {
+    .track-card .track-overlay {
+      opacity: 1;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, transparent 52%);
+    }
+  }
+
+  .track-name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(15px, 3.8vw, 19px);
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.25;
+  }
+
+  /* ─── VISUALS ─────────────────────────────────── */
+  #visuals {
+    background: var(--off-black);
+    /* Shared frame: 320/404 portrait; scale widens both vs base formula */
+    --visual-poster-w: 320;
+    --visual-poster-h: 404;
+    --visual-frame-scale: 1.55;
+    --visual-match-w: min(
+      100%,
+      calc(
+        100% * 9 / 16 * var(--visual-poster-w) / var(--visual-poster-h) *
+          var(--visual-frame-scale)
+      )
+    );
+  }
+
+  #visuals .section-shell {
+    text-align: center;
+    max-width: min(1560px, 100%);
+  }
+
+  .visuals-intro {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 19px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 64px;
+    font-weight: 400;
+  }
+
+  .visuals-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: min(88px, 6vw);
+    width: 100%;
+    margin: 0 auto 88px;
+    text-align: left;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .visuals-columns {
+      grid-template-columns: 1fr;
+      gap: clamp(48px, 14vh, 96px);
+      margin-bottom: clamp(48px, 10vh, 80px);
+    }
+
+    /*
+     * Each frame ~ one phone viewport tall (cap width), easy scroll-to-compare.
+     * 100% in column = content width; vw/dvh use full screen for sizing.
+     */
+    #visuals {
+      --visual-match-w: min(
+        100%,
+        calc(90dvh * var(--visual-poster-w) / var(--visual-poster-h))
+      );
+    }
+
+    #visuals .section-title {
+      margin-bottom: 28px;
+    }
+
+    .visuals-intro {
+      margin-bottom: 32px;
+      font-size: 16px;
+      padding-inline: 4px;
+    }
+
+    .visual-desc {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+  }
+
+  .visuals-columns > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .visual-screen {
+    aspect-ratio: 16/9;
+    width: 100%;
+    background: var(--dark);
+    border: 1px solid var(--border-subtle);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual-screen-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 12px 14px 20px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-muted);
+    text-align: left;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 5, 5, 0.92) 0%,
+      rgba(5, 5, 5, 0.55) 55%,
+      transparent 100%
+    );
+  }
+
+  .visual-screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 36px; height: 36px;
+    border-top: 2px solid rgba(255, 255, 255, 0.4);
+    border-left: 2px solid rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+
+  .screen-corner-br {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 36px; height: 36px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    border-right: 2px solid rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+
+  .visual-screen-gif {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .visual-screen-gif--stretch {
+    object-fit: fill;
+  }
+
+  .visual-screen:has(.visual-screen-gif)::after,
+  .visual-screen:has(.visual-screen-gif) .screen-corner-br {
+    z-index: 2;
+  }
+
+  /*
+   * VISUAL + LIVE: same size. Height matches a full-width 16:9 tile in this column;
+   * width from 320/404. GIF/source area uses this aspect. --visual-frame-scale enlarges both.
+   */
+  .visual-screen--matched {
+    width: var(--visual-match-w);
+    max-width: 100%;
+    aspect-ratio: var(--visual-poster-w) / var(--visual-poster-h);
+    margin-inline: auto;
+  }
+
+  .visual-desc {
+    box-sizing: border-box;
+    width: var(--visual-match-w);
+    max-width: 100%;
+    margin-top: 18px;
+    margin-inline: auto;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .visuals-cta {
+    max-width: 840px;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle);
+    padding: 68px 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+  }
+
+  .visuals-cta::before {
+    content: '◈';
+    font-size: 32px;
+    color: var(--accent-muted);
+    margin-bottom: 24px;
+    opacity: 0.5;
+  }
+
+  .cta-heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(28px, 4.2vw, 46px);
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 32px;
+    max-width: 580px;
+    line-height: 1.7;
+  }
+
+  .cta-connect {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px 36px;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .cta-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 14px 26px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cta-instagram:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+  .cta-instagram svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    opacity: 0.9;
+    flex-shrink: 0;
+  }
+
+  .cta-email-options {
+    position: relative;
+    text-align: left;
+  }
+  .cta-email-options summary {
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 14px 26px;
+    transition: background 0.2s, border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cta-email-options summary::-webkit-details-marker {
+    display: none;
+  }
+  .cta-email-options summary::after {
+    content: ' +';
+    font-weight: 400;
+    letter-spacing: 0;
+    opacity: 0.55;
+  }
+  .cta-email-options[open] summary::after {
+    content: ' −';
+  }
+  .cta-email-options summary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .cta-email-panel {
+    margin-top: 14px;
+    padding: 18px 20px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: min(100%, 280px);
+  }
+  .cta-email-address {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    word-break: break-all;
+  }
+  .cta-email-panel a,
+  .cta-email-panel button {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    text-align: left;
+    padding: 10px 8px;
+    margin: 0 -8px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .cta-email-panel a:hover,
+  .cta-email-panel button:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .cta-email-panel button {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ─── FOOTER ──────────────────────────────────── */
+  footer {
+    background: #050505;
+    padding: 72px var(--section-pad-x) 48px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .footer-logo {
+    height: 42px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0.6;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .social-link {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .social-link:hover { color: var(--white); }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    opacity: 0.8;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.22);
+  }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 600px) {
+    :root {
+      --header-h: 64px;
+      --shell-max: 100%;
+    }
+    header {
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+    section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      padding-left: max(20px, env(safe-area-inset-left, 0px));
+      padding-right: max(20px, env(safe-area-inset-right, 0px));
+    }
+    footer {
+      padding-top: 40px;
+      padding-bottom: max(28px, env(safe-area-inset-bottom, 0px));
+      padding-left: max(20px, env(safe-area-inset-left, 0px));
+      padding-right: max(20px, env(safe-area-inset-right, 0px));
+    }
+    .hero-logo {
+      height: clamp(300px, 64dvh, min(900px, 88dvh));
+      max-width: min(96vw, 100% - 20px);
+    }
+    .header-logo { max-width: 130px; height: 40px; }
+    /* One large cover per row — each tile ~ full content width */
+    .track-grid {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 32px;
+      max-width: 100%;
+    }
+    .track-card {
+      width: 100%;
+      max-width: min(100%, 460px);
+    }
+    .footer-inner { flex-direction: column; gap: 28px; text-align: center; }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      align-items: center;
+    }
+    .social-links { flex-wrap: wrap; justify-content: center; gap: 16px 20px; }
+    .social-link {
+      min-height: 44px;
+      padding: 6px 4px;
+    }
+    nav { gap: 12px; flex-shrink: 0; }
+    nav a { font-size: 11px; letter-spacing: 0.14em; }
+    .section-title {
+      font-size: clamp(28px, 9vw, 48px);
+      margin-bottom: 36px;
+    }
+    .visuals-cta {
+      padding-block: 36px;
+      padding-inline: max(20px, env(safe-area-inset-left, 0px))
+        max(20px, env(safe-area-inset-right, 0px));
+    }
+    .cta-heading { font-size: clamp(20px, 5.5vw, 32px); }
+    .cta-sub { font-size: 15px; }
+    .cta-connect {
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 320px;
+    }
+    .cta-instagram {
+      justify-content: center;
+    }
+    .cta-email-options summary {
+      text-align: center;
+    }
+    .cta-email-panel {
+      min-width: 0;
+    }
+    .spotify-embed-wrap iframe {
+      height: min(400px, 52dvh);
+      min-height: 260px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    nav { gap: 8px; }
+    nav a { font-size: 10px; letter-spacing: 0.1em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header id="site-header">
+  <a href="#hero">
+    <img
+      class="header-logo"
+      src="assets/logo.png"
+      alt="Vaughn Vintage"
+    />
+  </a>
+  <nav aria-label="Primary">
+    <a href="#visuals">VISUALS</a>
+    <a href="#music">MUSIC</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section id="hero">
+  <img
+    class="hero-logo"
+    src="assets/logo.png"
+    srcset="
+      assets/logo.png 819w,
+      assets/logo@2x.png 1638w,
+      assets/logo@3x.png 2457w
+    "
+    sizes="(max-width: 600px) min(96vw, 100vw), min(98vw, 960px)"
+    alt="Vaughn Vintage"
+    width="819"
+    height="1024"
+    fetchpriority="high"
+    decoding="async"
+  />
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════
+     VISUALS  (side-by-side VISUAL vs LIVE)
+════════════════════════════════════════════ -->
+<section id="visuals">
+  <div class="section-shell">
+  <div class="section-title">VISUALS</div>
+
+  <p class="visuals-intro">
+    First impressions only happen once. Make it count.
+  </p>
+
+  <div class="visuals-columns">
+
+    <div>
+      <div class="visual-screen visual-screen--matched">
+        <div class="visual-screen-title">VISUAL</div>
+        <img
+          class="visual-screen-gif visual-screen-gif--stretch"
+          src="assets/source-render.gif"
+          alt="Source motion graphic preview"
+          width="320"
+          height="356"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="screen-corner-br"></div>
+      </div>
+      <p class="visual-desc">The original, high-resolution motion graphic as rendered — clean, precise, full-color depth.</p>
+    </div>
+
+    <div>
+      <div class="visual-screen visual-screen--dim visual-screen--matched">
+        <div class="visual-screen-title">LIVE</div>
+        <img
+          class="visual-screen-gif"
+          src="assets/stage-projection.gif"
+          alt="Stage projection preview"
+          width="320"
+          height="404"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="screen-corner-br"></div>
+      </div>
+      <p class="visual-desc">The same visual in a real concert environment — projected across LED walls, backdrop screens, and stage rigs.</p>
+    </div>
+
+  </div>
+
+  <div class="visuals-cta" id="contact">
+    <div class="cta-heading">BOOK A VISUAL PACKAGE</div>
+    <p class="cta-sub">
+      Looking for custom visuals for your next show, tour, or release? Let's build something together. Connect with me via Instagram or Email.
+    </p>
+    <div class="cta-connect">
+      <a
+        class="cta-instagram"
+        href="https://www.instagram.com/vaughn_vintage/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Instagram
+      </a>
+      <details class="cta-email-options">
+        <summary aria-label="Email — show ways to send a message">Email</summary>
+        <div class="cta-email-panel">
+          <div class="cta-email-address">vaughnvintageofficial@gmail.com</div>
+          <a
+            href="mailto:vaughnvintageofficial@gmail.com?subject=Visual%20inquiry%20%E2%80%94%20Vaughn%20Vintage"
+          >Open in your email app</a>
+          <a
+            href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=vaughnvintageofficial@gmail.com&amp;su=Visual%20inquiry%20%E2%80%94%20Vaughn%20Vintage"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Compose in Gmail (web)</a>
+          <a
+            href="https://outlook.live.com/mail/0/deeplink/compose?to=vaughnvintageofficial@gmail.com&amp;subject=Visual%20inquiry%20%E2%80%94%20Vaughn%20Vintage"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Compose in Outlook (web)</a>
+          <button type="button" class="cta-copy-email" data-email="vaughnvintageofficial@gmail.com">
+            Copy email address
+          </button>
+        </div>
+      </details>
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════
+     MUSIC (Spotify-style discography)
+════════════════════════════════════════════ -->
+<section id="music">
+  <div class="section-shell">
+  <div class="section-title">MUSIC</div>
+
+  <div class="album-section">
+    <div class="spotify-embed-wrap" id="spotify-embed-wrap" hidden>
+      <iframe
+        data-testid="embed-iframe"
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/artist/4Nemo6ldmLmtlszRmUhaNs?utm_source=generator"
+        width="100%"
+        height="420"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        title="Vaughn Vintage on Spotify"
+      ></iframe>
+    </div>
+    <div class="track-grid" id="spotify-tracks" aria-live="polite"></div>
+    <a
+      class="spotify-artist-link"
+      id="spotify-artist-link"
+      href="https://open.spotify.com/artist/4Nemo6ldmLmtlszRmUhaNs"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Listen on Spotify</a>
+  </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer id="follow">
+  <div class="footer-inner">
+    <img
+      class="footer-logo"
+      src="assets/logo.png"
+      alt="Vaughn Vintage"
+    />
+
+    <div class="social-links">
+
+      <!-- Instagram -->
+      <a
+        class="social-link"
+        href="https://www.instagram.com/vaughn_vintage/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        INSTAGRAM
+      </a>
+
+      <!-- Spotify -->
+      <a class="social-link" href="https://open.spotify.com/artist/4Nemo6ldmLmtlszRmUhaNs" target="_blank" rel="noopener noreferrer">
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>
+        SPOTIFY
+      </a>
+
+      <!-- YouTube -->
+      <a
+        class="social-link"
+        href="https://www.youtube.com/@VaughnVintage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+        </svg>
+        YOUTUBE
+      </a>
+
+      <!-- SoundCloud -->
+      <a
+        class="social-link"
+        href="https://soundcloud.com/vaughnvintage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.175 12.225c-.017.108 0 .225.009.333l1.064 5.484-1.064 5.483c-.009.108-.026.225-.009.333.017.108.017.225.051.333A1.03 1.03 0 0 0 2.3 24c.567 0 1.026-.459 1.026-1.026V13.2l-1.026-1.475c-.1-.142-.242-.242-.409-.267a1.04 1.04 0 0 0-.716.767zm2.35-.017c-.008.1-.017.2-.017.3l.917 5.2-.917 5.2c0 .1.009.2.017.3.034.516.458.934.984.934s.95-.418.984-.934c.008-.1.017-.2.017-.3l-.8-5.2.8-5.2c0-.1-.009-.2-.017-.3-.034-.517-.458-.934-.984-.934s-.95.417-.984.934zm2.375.725l-.825 4.475.825 4.475c0 .567.458 1.025 1.025 1.025s1.025-.458 1.025-1.025l-.9-4.475.9-4.475c0-.567-.458-1.025-1.025-1.025s-1.025.458-1.025 1.025zm2.4-.384l-.767 4.134.767 4.133c0 .617.5 1.117 1.117 1.117s1.117-.5 1.117-1.117l-.85-4.133.85-4.134c0-.617-.5-1.117-1.117-1.117s-1.117.5-1.117 1.117zm2.441-.558l-.7 4.692.7 4.691c0 .667.542 1.209 1.209 1.209s1.208-.542 1.208-1.209l-.783-4.691.783-4.692c0-.667-.541-1.208-1.208-1.208s-1.209.541-1.209 1.208zm2.425-.083l-.667 4.775.667 4.775c0 .717.583 1.3 1.3 1.3s1.3-.583 1.3-1.3l-.733-4.775.733-4.775c0-.717-.583-1.3-1.3-1.3s-1.3.583-1.3 1.3zm5.808-2.35c-.25-.1-.516-.158-.783-.158a2.875 2.875 0 0 0-2.567 1.583 2.6 2.6 0 0 0-.642-.083 2.708 2.708 0 0 0-2.708 2.708v7.125c0 .717.583 1.3 1.3 1.3H19.2a2.567 2.567 0 0 0 2.567-2.567V9.775a2.567 2.567 0 0 0-2.567-2.567z"/>
+        </svg>
+        SOUNDCLOUD
+      </a>
+
+      <!-- TikTok -->
+      <a
+        class="social-link"
+        href="https://www.tiktok.com/@vaughn_vintage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+        </svg>
+        TIKTOK
+      </a>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 VAUGHN VINTAGE — ALL RIGHTS RESERVED</span>
+    <span class="footer-copy footer-mark">VV</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    let ticking = false;
+    function updateHeader() {
+      header.classList.toggle('header--solid', window.scrollY > 72);
+      ticking = false;
+    }
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateHeader);
+        }
+      },
+      { passive: true }
+    );
+    updateHeader();
+  })();
+
+  (function () {
+    var buttons = document.querySelectorAll('.cta-copy-email');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function () {
+        var btn = this;
+        var email = btn.getAttribute('data-email') || '';
+        var defaultLabel = 'Copy email address';
+        function showCopied() {
+          btn.textContent = 'Copied!';
+          setTimeout(function () {
+            btn.textContent = defaultLabel;
+          }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showCopied).catch(function () {
+            legacyCopy(email, showCopied);
+          });
+        } else {
+          legacyCopy(email, showCopied);
+        }
+      });
+    }
+    function legacyCopy(text, cb) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        if (document.execCommand('copy')) cb();
+      } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  })();
+
+  (function () {
+    const grid = document.getElementById("spotify-tracks");
+    const artistLink = document.getElementById("spotify-artist-link");
+    const embedWrap = document.getElementById("spotify-embed-wrap");
+    if (!grid) return;
+
+    function escapeHtml(str) {
+      const d = document.createElement("div");
+      d.textContent = str == null ? "" : String(str);
+      return d.innerHTML;
+    }
+
+    function escapeAttr(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;");
+    }
+
+    function showSpotifyEmbed() {
+      if (embedWrap) embedWrap.hidden = false;
+    }
+
+    function hideSpotifyEmbed() {
+      if (embedWrap) embedWrap.hidden = true;
+    }
+
+    function emptyStateHtml() {
+      return (
+        '<p class="discography-empty">Your catalog is not synced yet. The Spotify player above lists your public releases. For custom cover tiles on this page, complete the steps below.</p>' +
+        '<ol class="discography-steps">' +
+        '<li>Open <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Spotify for Developers</a>, sign in, and click <strong>Create app</strong> (any name).</li>' +
+        "<li>In the app, copy <strong>Client ID</strong> and <strong>Client secret</strong> (use “View client secret”).</li>" +
+        '<li>Copy <code>.env.example</code> to a new file named exactly <code>.env</code> in this project folder. On Windows, use Notepad → Save as type: <strong>All files</strong> so it is not saved as <code>.env.txt</code>.</li>' +
+        '<li>Add: <code>SPOTIFY_CLIENT_ID=</code>your id and <code>SPOTIFY_CLIENT_SECRET=</code>your secret (no quotes).</li>' +
+        '<li>Run <code>npm run spotify:sync</code> in the project folder, then reload this page.</li>' +
+        "</ol>"
+      );
+    }
+
+    fetch("assets/discography.json", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("bad response");
+        return r.json();
+      })
+      .then(function (data) {
+        if (data.artistUrl && artistLink) {
+          artistLink.href = data.artistUrl;
+        }
+
+        var albums = data.albums || [];
+        if (!albums.length) {
+          showSpotifyEmbed();
+          grid.innerHTML = emptyStateHtml();
+          return;
+        }
+
+        hideSpotifyEmbed();
+        grid.innerHTML = albums
+          .map(function (a) {
+            var url = a.spotifyUrl || data.artistUrl || "#";
+            var img =
+              a.imageUrl != null && a.imageUrl !== ""
+                ? '<img class="track-thumb" src="' +
+                  escapeAttr(a.imageUrl) +
+                  '" alt="" loading="lazy" width="640" height="640" sizes="(max-width: 600px) min(92vw, 460px), 336px" />'
+                : '<div class="track-thumb track-thumb--empty" role="img" aria-hidden="true"></div>';
+            return (
+              '<a class="track-card" href="' +
+              escapeAttr(url) +
+              '" target="_blank" rel="noopener noreferrer" aria-label="' +
+              escapeAttr(a.name + " on Spotify") +
+              '">' +
+              img +
+              '<div class="track-overlay">' +
+              '<div class="track-name">' +
+              escapeHtml(a.name) +
+              "</div>" +
+              "</div></a>"
+            );
+          })
+          .join("");
+      })
+      .catch(function () {
+        showSpotifyEmbed();
+        grid.innerHTML =
+          '<p class="discography-empty">Could not load <code>assets/discography.json</code>. Use a local server from this folder (<code>npm run dev</code> or <code>npm start</code>) — don’t open <code>index.html</code> directly in the browser. The Spotify player above still works.</p>';
+      });
+  })();
+</script>
+
+</body>
+</html>

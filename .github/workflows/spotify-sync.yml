@@ -1,0 +1,42 @@
+# Refreshes assets/discography.json using Spotify API.
+# Credentials live only in GitHub → Settings → Secrets and variables → Actions
+# (SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET). They are never stored in the repo.
+name: Sync Spotify discography
+
+on:
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch from Spotify API
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+        run: |
+          if [ -z "$SPOTIFY_CLIENT_ID" ] || [ -z "$SPOTIFY_CLIENT_SECRET" ]; then
+            echo "Spotify repository secrets are not set — skipping sync."
+            echo "Add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET under repo Settings → Secrets and variables → Actions."
+            exit 0
+          fi
+          node scripts/sync-spotify-discography.mjs
+
+      - name: Commit if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: sync Spotify discography"
+          file_pattern: assets/discography.json

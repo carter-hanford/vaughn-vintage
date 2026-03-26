@@ -1,0 +1,47 @@
+{
+  "artistId": "4Nemo6ldmLmtlszRmUhaNs",
+  "artistUrl": "https://open.spotify.com/artist/4Nemo6ldmLmtlszRmUhaNs",
+  "syncedAt": "2026-03-26T03:56:55.353Z",
+  "albums": [
+    {
+      "id": "3t3N5SqhRrM0RZYOLYm2G4",
+      "name": "Overdrive",
+      "albumType": "single",
+      "releaseDate": "2026-02-27",
+      "releaseDatePrecision": "day",
+      "spotifyUrl": "https://open.spotify.com/album/3t3N5SqhRrM0RZYOLYm2G4",
+      "imageUrl": "https://i.scdn.co/image/ab67616d0000b273ac386081db6280acabbe9c13",
+      "totalTracks": 1
+    },
+    {
+      "id": "0M7BiYBIcQppkuvJ0OzQTR",
+      "name": "Duality",
+      "albumType": "single",
+      "releaseDate": "2025-10-03",
+      "releaseDatePrecision": "day",
+      "spotifyUrl": "https://open.spotify.com/album/0M7BiYBIcQppkuvJ0OzQTR",
+      "imageUrl": "https://i.scdn.co/image/ab67616d0000b2730c881d4fc6f16413ffd37e5b",
+      "totalTracks": 2
+    },
+    {
+      "id": "6uiXJlKCyl6xB7HB4O78Lo",
+      "name": "Electro (Radio Edit)",
+      "albumType": "single",
+      "releaseDate": "2025-08-22",
+      "releaseDatePrecision": "day",
+      "spotifyUrl": "https://open.spotify.com/album/6uiXJlKCyl6xB7HB4O78Lo",
+      "imageUrl": "https://i.scdn.co/image/ab67616d0000b273d0778f4603ad8bdd2ecee7ab",
+      "totalTracks": 1
+    },
+    {
+      "id": "5QJAwybHSWq19EZZZvWaCP",
+      "name": "Dance All Night",
+      "albumType": "single",
+      "releaseDate": "2025-01-31",
+      "releaseDatePrecision": "day",
+      "spotifyUrl": "https://open.spotify.com/album/5QJAwybHSWq19EZZZvWaCP",
+      "imageUrl": "https://i.scdn.co/image/ab67616d0000b273622f3e9eedc6164490065092",
+      "totalTracks": 1
+    }
+  ]
+}
